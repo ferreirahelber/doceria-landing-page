@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados para a doceria */
+
+.carousel-image {
+  transition: transform 0.5s ease-in-out;
+}
+
+.product-card {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.gradient-pink-purple {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+}
+
+.gradient-light {
+  background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 100%);
+}
