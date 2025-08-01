@@ -65,6 +65,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [enlargedImage, setEnlargedImage] = useState(null);
 
+  // Auto-play do carrossel
   useEffect(() => {
     if (isPlaying) {
       const interval = setInterval(() => {
@@ -105,15 +106,16 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
       
       {/* CABEÇALHO */}
-      <header className="bg-teal-400 shadow-lg">
+      <header className="bg-header-background shadow-lg"> {/* A cor de fundo do cabeçalho é definida pela variável --header-background no App.css */}
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center">
             <img 
               src={logo} 
-              alt="Logo da Doceria" 
-              className="w-72 mr-44 -ml-48"
+              alt="Logo da Dodoce's" 
+              style={{ width: '300px', marginRight: '180px', marginLeft: '-200px' }}
             />
-            <p className="text-white text-lg font-medium">
+            {/* Slogan com novos estilos */}
+            <p className="slogan-text"> {/* Adicionada a classe 'slogan-text' para aplicar os estilos no App.css */}
               Doces artesanais feitos com amor.
             </p>
           </div>
@@ -123,7 +125,7 @@ function App() {
       {/* CARROSSEL */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          <h2 className="section-title"> {/* Adicionada a classe 'section-title' para aplicar os estilos no App.css */}
             Nossos Deliciosos Doces
           </h2>
           
@@ -136,6 +138,7 @@ function App() {
                 onClick={() => handleImageClick(carouselImages[currentImageIndex])}
               />
               
+              {/* Controles do carrossel */}
               <div className="absolute inset-0 flex items-center justify-between p-4">
                 <button
                   onClick={prevImage}
@@ -152,6 +155,7 @@ function App() {
                 </button>
               </div>
               
+              {/* Botão Play/Pause */}
               <div className="absolute bottom-4 left-4">
                 <button
                   onClick={togglePlayPause}
@@ -161,6 +165,7 @@ function App() {
                 </button>
               </div>
               
+              {/* Indicadores */}
               <div className="absolute bottom-4 right-4 flex space-x-2">
                 {carouselImages.map((_, index) => (
                   <button
@@ -182,8 +187,8 @@ function App() {
       {/* MENU DE PRODUTOS */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            Nosso Cardápio
+          <h2 className="section-title"> {/* Adicionada a classe 'section-title' para aplicar os estilos no App.css */}
+            Nossos Produtos
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -202,10 +207,10 @@ function App() {
                     />
                   </div>
                   <div className="w-2/3 p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    <h3 className="product-card-title"> {/* Adicionada a classe 'product-card-title' para aplicar os estilos no App.css */}
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="product-card-description"> {/* Adicionada a classe 'product-card-description' para aplicar os estilos no App.css */}
                       {product.description}
                     </p>
                   </div>
@@ -235,7 +240,7 @@ function App() {
               </a>
               
               <a
-                href="https://wa.me/5511999999999"
+                href="https://wa.me/5591982875970"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-3 bg-white/20 hover:bg-white/30 px-6 py-3 rounded-full transition-all duration-200 hover:scale-110"
@@ -247,7 +252,7 @@ function App() {
             
             <div className="mt-8 pt-8 border-t border-white/20">
               <p className="text-sm opacity-80">
-                © 2024 DoDoce - Doceria Artesanal. Todos os direitos reservados.
+                © 2025 Dodoce's - Doceria Artesanal. Todos os direitos reservados.
               </p>
             </div>
           </div>
