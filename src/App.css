@@ -1,11 +1,63 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Importando as fontes do Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Roboto+Condensed:wght@300;400;700&display=swap");
 
-/* Estilos personalizados para a doceria */
+/* ESTILOS PERSONALIZADOS PARA A DOCERIA */
+
+/* Estilo para o slogan "Doces artesanais feitos com amor" */
+.slogan-text {
+  font-family: "Dancing Script", sans-serif; /* Fonte cursiva elegante que transmite artesanalidade */
+  font-size: 55px; /* Tamanho grande para dar destaque ao slogan */
+  color: #ffffff; /* Cor branca para contrastar com o fundo azul-turquesa */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  margin-bottom: 10px; /* Espaçamento inferior de 10px */
+}
+
+/* Estilo para os títulos das seções (Nossos Deliciosos Doces, Nosso Cardápio) */
+.section-title {
+  font-family: "Playfair Display", serif; /* Fonte elegante e sofisticada para títulos */
+  color: #8B4513; /* Tom de marrom sofisticado que remete a chocolate/café */
+  font-size: 2.25rem; /* Equivale ao text-3xl do Tailwind (36px) */
+  font-weight: bold; /* Texto em negrito para dar destaque */
+  text-align: center; /* Centraliza o texto */
+  margin-bottom: 3rem; /* Espaçamento inferior (equivale ao mb-12 do Tailwind) */
+}
+
+/* Estilo para os títulos dos produtos nos cards */
+.product-card-title {
+  font-family: "Roboto Condensed", sans-serif; /* Fonte condensada e moderna */
+  color: #D2691E; /* Cor de caramelo que transmite doçura e sofisticação */
+  font-size: 1.25rem; /* Equivale ao text-xl do Tailwind (20px) */
+  font-weight: bold; /* Texto em negrito */
+  margin-bottom: 0.5rem; /* Espaçamento inferior (equivale ao mb-2 do Tailwind) */
+}
+
+/* Estilo para as descrições dos produtos nos cards */
+.product-card-description {
+  font-family: "Roboto Condensed", sans-serif; /* Mesma fonte dos títulos para consistência */
+  color: #D2691E; /* Mesma cor caramelo para manter a harmonia visual */
+  font-size: 0.875rem; /* Equivale ao text-sm do Tailwind (14px) */
+  line-height: 1.625; /* Equivale ao leading-relaxed do Tailwind para melhor legibilidade */
+}
+
+/* Classe para aplicar a cor de fundo do cabeçalho */
+.bg-header-background {
+  background-color: #72c5c4; /* Usa a cor diretamente */
+}
+
+/* Estilos existentes mantidos */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
 
 .carousel-image {
   transition: transform 0.5s ease-in-out;
+  /* Ajustes para o carrossel */
+  width: 100%; /* Garante que a imagem ocupe toda a largura do contêiner */
+  height: 384px; /* Altura fixa para o carrossel (h-96 do Tailwind) */
+  object-fit: cover; /* Corta a imagem para preencher o espaço, mantendo a proporção */
+  object-position: center; /* Centraliza a imagem dentro do espaço */
+  border-radius: 16px; 
 }
 
 .product-card {
@@ -21,6 +73,7 @@
   backdrop-filter: blur(8px);
 }
 
+/* Animações suaves */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -36,10 +89,19 @@
   animation: fadeIn 0.3s ease-out;
 }
 
+/* Gradientes personalizados */
 .gradient-pink-purple {
   background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
 }
 
 .gradient-light {
   background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 100%);
+}
+
+/* Estilos para as imagens dos cards de produtos */
+.product-image {
+  width: 100%; /* Garante que a imagem ocupe toda a largura do seu contêiner (w-1/3) */
+  height: 128px; /* Altura fixa para as imagens dos cards (h-32 do Tailwind) */
+  object-fit: cover; /* Corta a imagem para preencher o espaço, mantendo a proporção */
+  object-position: center; /* Centraliza a imagem dentro do espaço */
 }
