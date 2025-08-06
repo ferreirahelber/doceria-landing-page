@@ -223,7 +223,7 @@ function App() {
       </section>
 
       {/* RODAPÉ com Redes Sociais */}
-      <footer className="bg-gradient-to-r from-pink-600 to-purple-600 text-white py-12">
+      <footer className="bg-[#72c5c4] text-white py-12">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-6">Entre em Contato</h3>
