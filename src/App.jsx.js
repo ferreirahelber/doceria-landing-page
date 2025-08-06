@@ -107,12 +107,12 @@ function App() {
       
       {/* CABEÇALHO */}
       <header className="bg-header-background shadow-lg"> {/* A cor de fundo do cabeçalho é definida pela variável --header-background no App.css */}
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center">
+        <div className="container mx-auto px-4 py-1">
+          <div className="flex justify-center items-center space-x-2"> 
             <img 
               src={logo} 
               alt="Logo da Dodoce's" 
-              style={{ width: '300px', marginRight: '100px', marginLeft: '50px' }} /* Posiciona a logo e os dizeres no topo da página */
+              style={{ height: '200px'}} /* Posiciona a logo e os dizeres no topo da página */
             />
             {/* Slogan com novos estilos */}
             <p className="slogan-text"> {/* Adicionada a classe 'slogan-text' para aplicar os estilos no App.css */}
@@ -126,7 +126,7 @@ function App() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="section-title"> {/* Adicionada a classe 'section-title' para aplicar os estilos no App.css */}
-            Nossos Deliciosos Doces
+            {/* Nossos Deliciosos Doces */}
           </h2>
           
           <div className="relative max-w-4xl mx-auto">
@@ -223,7 +223,7 @@ function App() {
       </section>
 
       {/* RODAPÉ com Redes Sociais */}
-      <footer className="bg-[#72c5c4] text-white py-12">
+      <footer className="bg-[#72c5c4] text-white py-4">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-6">Entre em Contato</h3>

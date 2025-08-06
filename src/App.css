@@ -6,10 +6,11 @@
 /* Estilo para o slogan "Doces artesanais feitos com amor" */
 .slogan-text {
   font-family: "Dancing Script", sans-serif; /* Fonte cursiva elegante que transmite artesanalidade */
-  font-size: 55px; /* Tamanho grande para dar destaque ao slogan */
+  font-size: 45px; /* Tamanho grande para dar destaque ao slogan */
   color: #ffffff; /* Cor branca para contrastar com o fundo azul-turquesa */
   text-align: center; /* Centraliza o texto horizontalmente */
-  margin-bottom: 10px; /* Espaçamento inferior de 10px */
+  /* margin-bottom: 10px; /* Espaçamento inferior de 10px */
+  margin: 0; /* zerar todas as margens */
 }
 
 /* Estilo para os títulos das seções (Nossos Deliciosos Doces, Nosso Cardápio) */
