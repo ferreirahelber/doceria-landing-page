@@ -54,10 +54,11 @@
   transition: transform 0.5s ease-in-out;
   /* Ajustes para o carrossel */
   width: 100%; /* Garante que a imagem ocupe toda a largura do contêiner */
-  height: 384px; /* Altura fixa para o carrossel (h-96 do Tailwind) */
-  object-fit: cover; /* Corta a imagem para preencher o espaço, mantendo a proporção */
+  height: 400px; /* Altura fixa para o carrossel (h-96 do Tailwind) */
+  object-fit: contain; /* Corta a imagem para preencher o espaço, mantendo a proporção */
   object-position: center; /* Centraliza a imagem dentro do espaço */
-  border-radius: 16px; 
+  /* border-radius: 16px; */
+  background-color: #f8f9fa; /* ✅ Fundo suave para espaços vazios */ 
 }
 
 .product-card {
