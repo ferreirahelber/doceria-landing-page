@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Play, Pause, Instagram, MessageCircle, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, Instagram, MessageCircle, X } from 'lucide-react';
 import './App.css';
 
 // IMPORTAR SUAS IMAGENS (substitua pelos nomes reais dos seus arquivos)
@@ -17,8 +17,15 @@ import torta1 from './assets/morango1.jpeg';
 import sobremesa1 from './assets/morango2.jpeg';
 import sobremesa2 from './assets/morango3.jpeg';
 
-// IMAGENS DO CARROSSEL
-const carouselImages = [doce1, doce2, doce3, doce4, doce5, doce6];
+/// DADOS DO CARROSSEL - Estrutura de dados para o novo carrossel
+const carouselData = [
+  { cover: doce1, title: "Morango Trufado" },
+  { cover: doce2, title: "Taça Recheada" },
+  { cover: doce3, title: "Taça Especial" },
+  { cover: doce4, title: "Fatia de Bolo" },
+  { cover: doce5, title: "Cone Trufado" },
+  { cover: doce6, title: "Brownie Gourmet" }
+];
 
 // PRODUTOS DO MENU
 const products = [
@@ -60,39 +67,120 @@ const products = [
   }
 ];
 
-function App() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [enlargedImage, setEnlargedImage] = useState(null);
-
-  // Auto-play do carrossel
-  useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => 
-          prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
-        );
-      }, 3000);
+// COMPONENTE DO CARROSSEL CUSTOMIZADO COM EFEITO DE PILHA
+function StackedCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0); // Índice do slide atual
+  const [isAnimating, setIsAnimating] = useState(false); // Controla se está animando
+  
+  // Função para ir para o próximo slide
+  const goNext = () => {
+    if (isAnimating) return; // Previne múltiplos cliques durante animação
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev + 1) % carouselData.length);
+    setTimeout(() => setIsAnimating(false), 500); // Duração da animação
+  };
+  
+  // Função para ir para o slide anterior
+  const goPrev = () => {
+    if (isAnimating) return; // Previne múltiplos cliques durante animação
+    setIsAnimating(true);
+    setCurrentIndex((prev) => (prev - 1 + carouselData.length) % carouselData.length);
+    setTimeout(() => setIsAnimating(false), 500); // Duração da animação
+  };
+  
+  // Função para ir para um slide específico
+  const goToSlide = (index) => {
+    if (isAnimating || index === currentIndex) return;
+    setIsAnimating(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+  
+  // Função para calcular a posição e escala de cada slide
+  const getSlideStyle = (index) => {
+    const diff = index - currentIndex; // Diferença do slide atual
+    const absIndex = Math.abs(diff); // Valor absoluto da diferença
+    
+    // Configurações de posicionamento e escala
+    let translateX = diff * 120; // Deslocamento horizontal
+    let scale = 1 - absIndex * 0.15; // Escala diminui conforme se afasta do centro
+    let zIndex = carouselData.length - absIndex; // Z-index para empilhamento
+    let opacity = absIndex > 2 ? 0 : 1 - absIndex * 0.3; // Opacidade
+    
+    // Limita a escala mínima
+    scale = Math.max(scale, 0.7);
+    
+    return {
+      transform: `translateX(${translateX}px) scale(${scale})`,
+      zIndex: zIndex,
+      opacity: opacity,
+      transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    };
+  };
+  
+  return (
+    <div className="stacked-carousel-container">
+      {/* Container dos slides */}
+      <div className="stacked-carousel-track">
+        {carouselData.map((item, index) => (
+          <div
+            key={index}
+            className={`stacked-slide ${index === currentIndex ? 'active' : ''}`}
+            style={getSlideStyle(index)}
+            onClick={() => goToSlide(index)}
+          >
+            <div className="slide-content">
+              <img
+                src={item.cover}
+                alt={item.title}
+                className="slide-image"
+                draggable={false}
+              />
+              <div className="slide-overlay">
+                <h3 className="slide-title">{item.title}</h3>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
       
-      return () => clearInterval(interval);
-    }
-  }, [isPlaying]);
+      {/* Botões de navegação */}
+      <button
+        className="carousel-nav-button carousel-nav-left"
+        onClick={goPrev}
+        disabled={isAnimating}
+        aria-label="Slide anterior"
+      >
+        <ChevronLeft size={24} />
+      </button>
+      
+      <button
+        className="carousel-nav-button carousel-nav-right"
+        onClick={goNext}
+        disabled={isAnimating}
+        aria-label="Próximo slide"
+      >
+        <ChevronRight size={24} />
+      </button>
+      
+      {/* Indicadores de posição */}
+      <div className="carousel-indicators">
+        {carouselData.map((_, index) => (
+          <button
+            key={index}
+            className={`carousel-indicator ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => goToSlide(index)}
+            disabled={isAnimating}
+            aria-label={`Ir para slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? carouselImages.length - 1 : prevIndex - 1
-    );
-  };
-
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+function App() {
+  const [enlargedImage, setEnlargedImage] = useState(null);
 
   const handleImageClick = (image) => {
     setEnlargedImage(image);
@@ -122,66 +210,15 @@ function App() {
         </div>
       </header>
 
-      {/* CARROSSEL */}
+      {/* NOVO CARROSSEL COM EFEITO DE PILHA */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <h2 className="section-title"> {/* Adicionada a classe 'section-title' para aplicar os estilos no App.css */}
-            {/* Nossos Deliciosos Doces */}
+          <h2 className="section-title">
+            Nossos Deliciosos Doces
           </h2>
           
-          <div className="relative max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-              {/* Imagem do carrossel com classe específica para controle de dimensões */}
-              <img
-                src={carouselImages[currentImageIndex]}
-                alt={`Doce ${currentImageIndex + 1}`}
-                className="carousel-image cursor-pointer transition-transform duration-300 hover:scale-105"
-                onClick={() => handleImageClick(carouselImages[currentImageIndex])}
-              />
-              
-              {/* Controles do carrossel */}
-              <div className="absolute inset-0 flex items-center justify-between p-4">
-                <button
-                  onClick={prevImage}
-                  className="bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                
-                <button
-                  onClick={nextImage}
-                  className="bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-              
-              {/* Botão Play/Pause */}
-              <div className="absolute bottom-4 left-4">
-                <button
-                  onClick={togglePlayPause}
-                  className="bg-white/80 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
-                >
-                  {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-                </button>
-              </div>
-              
-              {/* Indicadores */}
-              <div className="absolute bottom-4 right-4 flex space-x-2">
-                {carouselImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                      index === currentImageIndex 
-                        ? 'bg-white scale-125' 
-                        : 'bg-white/50 hover:bg-white/75'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* Carrossel customizado */}
+          <StackedCarousel />
         </div>
       </section>
 

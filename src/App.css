@@ -45,21 +45,251 @@
   background-color: #72c5c4; /* Usa a cor diretamente */
 }
 
-/* Estilos existentes mantidos */
-.carousel-container {
+/* ESTILOS PARA O CARROSSEL CUSTOMIZADO COM EFEITO DE PILHA */
+
+/* Container principal do carrossel */
+.stacked-carousel-container {
   position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 0;
+  min-height: 500px;
   overflow: hidden;
 }
 
-.carousel-image {
-  transition: transform 0.5s ease-in-out;
-  /* Ajustes para o carrossel */
-  width: 100%; /* Garante que a imagem ocupe toda a largura do contêiner */
-  height: 400px; /* Altura fixa para o carrossel (h-96 do Tailwind) */
-  object-fit: contain; /* Corta a imagem para preencher o espaço, mantendo a proporção */
-  object-position: center; /* Centraliza a imagem dentro do espaço */
-  /* border-radius: 16px; */
-  background-color: #f8f9fa; /* ✅ Fundo suave para espaços vazios */ 
+/* Track que contém todos os slides */
+.stacked-carousel-track {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slide individual */
+.stacked-slide {
+  position: absolute;
+  width: 300px;
+  height: 350px;
+  cursor: pointer;
+  transform-origin: center center;
+}
+
+/* Conteúdo do slide */
+.slide-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Efeito hover no slide ativo */
+.stacked-slide.active .slide-content:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Imagem do slide */
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+/* Efeito hover na imagem */
+.stacked-slide:hover .slide-image {
+  transform: scale(1.05);
+}
+
+/* Overlay com título */
+.slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 40px 20px 20px;
+  color: white;
+}
+
+/* Título do slide */
+.slide-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Botões de navegação */
+.carousel-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  color: #333;
+}
+
+/* Botão esquerdo */
+.carousel-nav-left {
+  left: 30px;
+}
+
+/* Botão direito */
+.carousel-nav-right {
+  right: 30px;
+}
+
+/* Efeito hover nos botões */
+.carousel-nav-button:hover:not(:disabled) {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* Botão desabilitado */
+.carousel-nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Indicadores de posição */
+.carousel-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 100;
+}
+
+/* Indicador individual */
+.carousel-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Indicador ativo */
+.carousel-indicator.active {
+  background: white;
+  transform: scale(1.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Indicador hover */
+.carousel-indicator:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
+}
+
+/* Indicador desabilitado */
+.carousel-indicator:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 1024px) {
+  .stacked-carousel-container {
+    max-width: 800px;
+    padding: 40px 0;
+  }
+  
+  .stacked-carousel-track {
+    height: 350px;
+  }
+  
+  .stacked-slide {
+    width: 250px;
+    height: 300px;
+  }
+  
+  .slide-title {
+    font-size: 1.2rem;
+  }
+  
+  .carousel-nav-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .carousel-nav-left {
+    left: 20px;
+  }
+  
+  .carousel-nav-right {
+    right: 20px;
+  }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .stacked-carousel-container {
+    max-width: 100%;
+    padding: 30px 0;
+    min-height: 400px;
+  }
+  
+  .stacked-carousel-track {
+    height: 280px;
+  }
+  
+  .stacked-slide {
+    width: 200px;
+    height: 250px;
+  }
+  
+  .slide-title {
+    font-size: 1rem;
+  }
+  
+  .carousel-nav-button {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .carousel-nav-left {
+    left: 15px;
+  }
+  
+  .carousel-nav-right {
+    right: 15px;
+  }
+  
+  .carousel-indicator {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .carousel-indicators {
+    gap: 12px;
+  }
 }
 
 .product-card {
