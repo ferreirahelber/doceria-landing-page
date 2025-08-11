@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Instagram, MessageCircle, X } from 'lucide-react';
 import './App.css';
 
@@ -71,7 +71,21 @@ const products = [
 function StackedCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0); // Índice do slide atual
   const [isAnimating, setIsAnimating] = useState(false); // Controla se está animando
-  
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true); // Controla se o auto-play está ativo
+
+  // Auto-play: avança automaticamente a cada 4 segundos
+  useEffect(() => {
+    if (!isAutoPlaying || isAnimating) return; // Não executa se auto-play desabilitado ou animando
+    
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setCurrentIndex((prev) => (prev + 1) % carouselData.length);
+      setTimeout(() => setIsAnimating(false), 500);
+    }, 4000); // Muda slide a cada 4 segundos
+    
+    return () => clearInterval(interval); // Limpa o interval quando componente desmonta
+  }, [isAutoPlaying, isAnimating]); // Reexecuta quando auto-play ou animação muda
+
   // Função para ir para o próximo slide
   const goNext = () => {
     if (isAnimating) return; // Previne múltiplos cliques durante animação
@@ -98,9 +112,20 @@ function StackedCarousel() {
   
   // Função para calcular a posição e escala de cada slide
   const getSlideStyle = (index) => {
-    const diff = index - currentIndex; // Diferença do slide atual
-    const absIndex = Math.abs(diff); // Valor absoluto da diferença
+    let diff = index - currentIndex; // Diferença do slide atual
     
+    // Lógica para loop infinito contínuo
+    const totalSlides = carouselData.length;
+    
+    // Se a diferença for maior que metade dos slides, ajusta para o caminho mais curto
+    if (diff > totalSlides / 2) {
+      diff = diff - totalSlides; // Vai pela esquerda
+    } else if (diff < -totalSlides / 2) {
+      diff = diff + totalSlides; // Vai pela direita
+    }
+    
+    const absIndex = Math.abs(diff); // Valor absoluto da diferença
+
     // Configurações de posicionamento e escala
     let translateX = diff * 120; // Deslocamento horizontal
     let scale = 1 - absIndex * 0.15; // Escala diminui conforme se afasta do centro
@@ -214,7 +239,7 @@ function App() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="section-title">
-            Nossos Deliciosos Doces
+           {/* Nossos Deliciosos Doces */}
           </h2>
           
           {/* Carrossel customizado */}
