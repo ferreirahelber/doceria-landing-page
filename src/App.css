@@ -26,7 +26,7 @@
 }
 
 /* Formatação do titulo da saudação */
-.greeting-message h2 {
+.greeting-title{
   font-size: 2.3rem; /* maior destaque */
   margin-bottom: 15px;
   font-weight: bold;
@@ -39,6 +39,11 @@
   font-size: 1rem; /* mantém o texto menor */
   margin-bottom: 10px;
   line-height: 1.6;
+}
+
+/* Cor de fundo exclusiva para a seção do carrossel */
+.bg-carousel-custom {
+  background-color: #fce6b6;
 }
 
 /* Estilo para os títulos das seções (Nossos Deliciosos Doces, Nosso Cardápio) */
