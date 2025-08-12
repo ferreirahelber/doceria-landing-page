@@ -238,6 +238,29 @@ function App() {
       {/* NOVO CARROSSEL COM EFEITO DE PILHA */}
       <section className="py-12">
         <div className="container mx-auto px-4">
+
+          {/* Mensagem de saudação */}
+          <div className="greeting-message">
+            <h2>Bem-vindos à Dodoce's!</h2>
+            <p>
+              Sou uma empreendedora apaixonada por transformar ingredientes selecionados
+              em doces que encantam e conquistam paladares. Na Dodoce's, cada produto é
+              confeccionado de forma artesanal, com todo o carinho e dedicação, pensando
+              em levar até você uma experiência única. Cada sabor é cuidadosamente
+              escolhido para garantir a melhor qualidade e aquele gostinho de feito em casa.
+            </p>
+            <p>
+              Se você busca doces que além de sabor trazem amor em cada pedaço, está no
+              lugar certo. Seja um bombom, um bolo ou qualquer outra delícia, tudo é
+              preparado como se fosse para alguém da família.
+            </p>
+            <p>
+              Bem-vindos à Dodoce's, onde o doce é feito com o coração!
+            </p>
+            <p><strong>por Karen Bandeira</strong></p>
+          </div>
+
+          {/* Título da seção de doces */}    
           <h2 className="section-title">
            {/* Nossos Deliciosos Doces */}
           </h2>
