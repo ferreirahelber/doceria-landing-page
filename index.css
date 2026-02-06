@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@config "./tailwind.config.js";
+
+@font-face {
+  font-family: 'Playlist Script';
+  src: url('https://fonts.cdnfonts.com/s/14099/Playlist%20Script.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
+  body {
+    @apply font-quicksand scroll-smooth;
+  }
+}
+
+.font-cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
